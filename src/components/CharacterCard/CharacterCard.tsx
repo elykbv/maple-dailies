@@ -1,29 +1,30 @@
 import { useState, useEffect } from 'react'
+import { ICharacterData } from '../../types/ICharacterData'
+import classNames from 'classnames'
+import './CharacterCard.css'
 
 interface Props {
   ign: string
+  active: boolean
+  onClick: () => void
 }
 
-interface ICharacterData {
-  CharacterName: string
-  CharacterImgUrl: string
-  JobName: string
-  Level: number
-}
-
-const CharacterCard: React.FC<Props> = ({ ign }) => {
+const CharacterCard: React.FC<Props> = ({ ign, active, onClick }) => {
   const [data, setData] = useState<ICharacterData>({} as ICharacterData)
 
   useEffect(() => {
-    fetch(`http://localhost:3000/gms/character/Satsu`)
+    fetch(`http://localhost:3000/gms/character/${ign}`)
       .then((res) => res.json())
       .then((res) => setData(res[0]))
   }, [])
 
   return (
-    <div className="character-card">
+    <div className="character-card" onClick={onClick}>
       <div>
-        <img src={data.CharacterImgUrl} />
+        <img
+          src={data.CharacterImgUrl}
+          className={classNames({ grayscale: !active })}
+        />
       </div>
       <div>{data.CharacterName}</div>
       <div>

@@ -1,0 +1,15 @@
+.character-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.grayscale {
+  filter: grayscale(1);
+  transition: 0.5s linear;
+}
+
+.grayscale:hover {
+  filter: none;
+  transition: 0.5s linear;
+}
