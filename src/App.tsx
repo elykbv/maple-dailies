@@ -31,6 +31,7 @@ function App() {
               value={value}
               onChange={onChange}
               placeholder="Enter your IGN"
+              onKeyPress={e => e.key === 'Enter' && open()}
             />
           )}
         />
@@ -64,7 +65,7 @@ function App() {
             )
           })}
         </Tabs.List>
-      </Tabs>
+		</Tabs>
       <DailiesList dailies={characters[activeCharacter!]?.dailies} />
       <EditDailiesModal opened={opened} close={close} ign={getValues().ign} />
     </div>
