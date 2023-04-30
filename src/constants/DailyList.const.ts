@@ -32,6 +32,14 @@ export const dailyList = [
     type: 'misc'
   },
   {
+    name: 'Monster Park',
+    type: 'misc'
+  },
+  {
+    name: 'Maple Tour',
+    type: 'misc'
+  },
+  {
     name: 'Vanishing Journey',
     type: 'symbol'
   },

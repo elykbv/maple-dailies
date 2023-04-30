@@ -52,7 +52,7 @@ const EditDailiesModal: React.FC<Props> = ({ opened, close, ign }) => {
                       key={index}
                       control={control}
                       defaultValue={false}
-                      name={daily.name}
+                      name={`${daily.name}-${daily.type}`}
                       render={({ field: { value, onChange } }) => (
                         <Checkbox
                           label={daily.name}
