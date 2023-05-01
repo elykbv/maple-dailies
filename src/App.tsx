@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import CharacterCard from './components/CharacterCard/CharacterCard'
-import { ActionIcon, Tabs, TextInput } from '@mantine/core'
+import { ActionIcon, Button, Tabs, TextInput } from '@mantine/core'
 import { useCharactersStore } from './stores/charactersStore'
 import { useDisclosure } from '@mantine/hooks'
 import EditDailiesModal from './components/Modals/EditDailiesModal'
 import DailiesList from './components/DailiesList/DailiesList'
+import Timer from './components/Timer/Timer'
 
 function App() {
   const { characters } = useCharactersStore((state) => state)
-  const { control, reset, getValues } = useForm()
+  const { control, getValues } = useForm()
   const [opened, { open, close }] = useDisclosure(false)
   const [activeCharacter, setActiveCharacter] = useState<string | null>(
     characters[0]?.charInfo.CharacterName
@@ -17,7 +18,7 @@ function App() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'end', gap: 0 }}>
+        <div style={{ display: 'flex', justifyContent: 'end', gap: 0 }}>
         <Controller
           name="ign"
           defaultValue=""
@@ -66,10 +67,19 @@ function App() {
           })}
         </Tabs.List>
 		</Tabs>
-      <DailiesList dailies={characters[activeCharacter!]?.dailies} />
-      <EditDailiesModal opened={opened} close={close} ign={getValues().ign} />
+        <div style={{ display: 'flex'}}>
+            <div>
+
+        <Timer reset='daily'/>
+        <DailiesList dailies={characters[activeCharacter!]?.dailies} />
+        <EditDailiesModal opened={opened} close={close} ign={getValues().ign}/> 
+        </div>
+        <div>
+            <Timer reset='weekly' />
+        </div>
+        </div>
     </div>
-  )
+    )
 }
 
 export default App

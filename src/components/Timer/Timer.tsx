@@ -1,10 +1,13 @@
 import { useTimer } from "react-timer-hook"
+import './Timer.css'
 
 interface Props {
-    reset: 'daily' | 'weekly'
+    reset: Reset 
 }
 
-const calculateTime = (reset) => {
+type Reset = 'daily' | 'weekly'
+
+const calculateTime = (reset: Reset) => {
     if (reset === 'daily') {
         const tomorrow = new Date()
         tomorrow.setUTCDate(tomorrow.getUTCDate() + 1)
@@ -21,7 +24,7 @@ const calculateTime = (reset) => {
     return nextWeek
 }
 
-const pad = (input: string, size = 2): string => {
+const pad = (input: number, size = 2): string => {
     let str = String(input)
     while (str.length < (size)) str = "0" + str
     return str
@@ -30,7 +33,7 @@ const pad = (input: string, size = 2): string => {
 const Timer: React.FC<Props> = ({ reset }) => {
     const { seconds, minutes, hours, days } = useTimer({ expiryTimestamp: calculateTime(reset), autoStart: true })
 
-    return <>{reset === 'weekly' ? days : ''}:{pad(hours)}:{pad(minutes)}:{pad(seconds)}</>
+    return <div className='timer'>{reset === 'weekly' ? `${days}:` : ''}{pad(hours)}:{pad(minutes)}:{pad(seconds)}</div>
 }
 
 export default Timer
